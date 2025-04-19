@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paws & Hope | Animal Rescue</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FF8C42',
+            secondary: '#4ECDC4',
+            accent: '#FF3A20',
+            dark: '#121212',
+            light: '#FFF9F0',
+            warmBrown: '#8B5A2B',
+            softOrange: '#FFB347',
+          },
+          fontFamily: {
+            sans: ['Nunito', 'sans-serif'],
+            heading: ['Poppins', 'sans-serif'],
+          },
+          transitionDuration: {
+            DEFAULT: '300ms',
+          },
+        }
+      }
+    }
+  </script>
+  <style type="tailwindcss">
+    @layer utilities {
+      .section-hidden {
+        @apply opacity-0 translate-y-6;
+      }
+      .section-visible {
+        @apply opacity-100 translate-y-0;
+      }
+      .btn-pulse:hover:after {
+        @apply scale-100;
+      }
+      .btn-pulse:after {
+        content: '';
+        @apply absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-white/10 scale-0 rounded-full;
+        transition: transform 600ms ease;
+      }
+      .nav-link:after {
+        content: '';
+        @apply absolute bottom-[-5px] left-0 h-0.5 bg-primary w-0;
+        transition: width 300ms ease;
+      }
+      .nav-link:hover:after {
+        @apply w-full;
+      }
+      .timeline-img:hover img {
+        @apply scale-105;
+      }
+      .stat-item:hover {
+        @apply -translate-y-1;
+      }
+      .progress-bar {
+        @apply h-4 bg-gray-200 rounded-full overflow-hidden;
+      }
+      .progress-bar-fill {
+        @apply h-full transition-all duration-1000 ease-out;
+      }
+      .timeline-node {
+        @apply w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center font-semibold relative z-10;
+      }
+      .timeline-connector {
+        @apply absolute top-6 left-6 w-1 h-full -z-10 bg-primary/30;
+      }
+      input:focus, select:focus {
+        @apply ring-2 ring-primary/20 border-primary;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    }
+    html {
+      scroll-behavior: smooth; /* Smooth scrolling */
+    }
+  </style>
+</head>
+<body class="font-sans bg-light text-dark transition-colors duration-300 dark:bg-dark dark:text-light">
+  <!-- Floating Donate Button -->
+  <div class="fixed bottom-8 right-8 z-50">
+    <a href="#donate" class="btn-pulse relative flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-white transition-all hover:scale-105 shadow-lg">
+      <i class="fas fa-heart"></i>
+      <span class="font-semibold">Donate Now</span>
+    </a>
+  </div>
+
+  <!-- Dark Mode Toggle -->
+  <div class="fixed top-24 right-6 z-50 md:right-8">
+    <button id="darkModeToggle" class="flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-white transition-all hover:scale-105">
+      <i class="fas fa-moon"></i>
+      <span>Dark Mode</span>
+    </button>
+  </div>
+<!-- Hero Section -->
+  <header class="relative h-screen flex flex-col justify-center items-center text-center px-4 bg-cover bg-center" id="heroSection" aria-label="Rescued dog looking hopefully at camera">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40"></div>
+    <nav class="absolute top-0 w-full py-6 px-4 md:px-8 flex justify-between items-center z-10">
+      <div class="text-2xl font-bold text-white transition-transform hover:scale-105">
+        <span class="text-primary">Paws</span> & <span class="text-secondary">Hope</span>
+      </div>
+      <ul class="hidden md:flex gap-6">
+        <li><a href="#mission" class="nav-link relative text-white font-semibold">Our Mission</a></li>
+        <li><a href="#timeline" class="nav-link relative text-white font-semibold">Rescue Journey</a></li>
+        <li><a href="#stories" class="nav-link relative text-white font-semibold">Stories</a></li>
+        <li><a href="#help" class="nav-link relative text-white font-semibold">Help</a></li>
+        <li><a href="#adopt" class="nav-link relative text-white font-semibold">Adopt</a></li>
+      </ul>
+      <button class="md:hidden text-white text-xl" id="mobileMenuToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="fixed inset-0 bg-dark/95 z-40 flex-col items-center justify-center hidden">
+      <button class="absolute top-6 right-6 text-white text-xl" id="mobileMenuClose">
+        <i class="fas fa-times"></i>
+      </button>
+      <ul class="flex flex-col gap-6 text-center">
+        <li><a href="#mission" class="text-white text-xl font-semibold">Our Mission</a></li>
+        <li><a href="#timeline" class="text-white text-xl font-semibold">Rescue Journey</a></li>
+        <li><a href="#stories" class="text-white text-xl font-semibold">Stories</a></li>
+        <li><a href="#help" class="text-white text-xl font-semibold">Help</a></li>
+        <li><a href="#adopt" class="text-white text-xl font-semibold">Adopt</a></li>
+      </ul>
+    </div>
+    
+    <div class="max-w-3xl mx-auto section-hidden transition-all duration-500 delay-100 relative z-10">
+      <h1 class="text-4xl md:text-5xl font-heading font-bold text-white mb-4">From the Streets to Safe Homes</h1>
+      <p class="text-xl text-white mb-8">One paw at a time, we're giving abandoned animals a second chance at <span class="text-primary font-bold">life</span> and <span class="text-primary font-bold">love</span>.</p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="#stories" class="btn-pulse relative inline-block px-8 py-3 rounded-full bg-primary text-white font-semibold overflow-hidden transition-all hover:-translate-y-1 hover:bg-accent">
+          See Their Stories <i class="fas fa-paw ml-2"></i>
+        </a>
+        <a href="#adopt" class="btn-pulse relative inline-block px-8 py-3 rounded-full bg-secondary text-white font-semibold overflow-hidden transition-all hover:-translate-y-1 hover:bg-secondary/80">
+          Adopt Now <i class="fas fa-home ml-2"></i>
+        </a>
+      </div>
+    </div>
+    
+    <!-- Scroll Down Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+      <a href="#mission" class="flex flex-col items-center">
+        <span class="text-sm mb-2">Discover Our Mission</span>
+        <i class="fas fa-chevron-down"></i>
+      </a>
+    </div>
+  </header>
+
+  <!-- Our Mission Section -->
+  <section id="mission" class="py-16 px-4 md:px-8 section-hidden transition-all duration-500">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-center mb-6">Our Mission</h2>
+      <div class="flex flex-col md:flex-row gap-8 items-center">
+        <div class="md:w-1/2">
+          <img src="https://images.unsplash.com/photo-1570358934836-6802981e481e" alt="Team of volunteers with rescued animals" class="rounded-xl shadow-lg w-full h-auto" loading="lazy">
+        </div>
+        <div class="md:w-1/2">
+          <div class="bg-primary/10 p-6 rounded-xl border-l-4 border-primary mb-6">
+            <p class="text-lg font-semibold italic">"Every animal deserves safety, care, and a loving home."</p>
+          </div>
+          <p class="mb-4">At Paws & Hope, we believe in a world where no animal suffers from neglect or abuse. Founded in 2018, our team of dedicated volunteers works tirelessly to rescue abandoned animals from the streets of Mumbai and surrounding areas.</p>
+          <p class="mb-6">Our approach is comprehensive - from emergency medical care to rehabilitation and adoption programs, we're committed to giving every animal a second chance at happiness.</p>
+          <div class="flex items-center gap-4">
+            <div class="h-10 w-10 rounded-full bg-warmBrown text-white flex items-center justify-center">
+              <i class="fas fa-award"></i>
+            </div>
+            <p class="font-semibold">Government certified animal welfare organization since 2019</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact Timeline -->
+  <section id="timeline" class="py-16 px-4 md:px-8 bg-secondary/10 section-hidden transition-all duration-500">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-center mb-12">The Journey to a Forever Home</h2>
+      
+      <div class="relative">
+        <!-- Timeline Connector -->
+        <div class="hidden md:block absolute left-1/2 top-0 h-full w-1 bg-primary/30 transform -translate-x-1/2"></div>
+        
+        <!-- Rescue Stage -->
+        <div class="timeline-item mb-16 md:mb-24">
+          <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0 text-right order-2 md:order-1">
+              <div class="timeline-content">
+                <span class="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary font-semibold text-sm mb-2">Day 1</span>
+                <h3 class="text-2xl font-heading font-bold text-warmBrown mb-2">The Rescue</h3>
+                <p class="mb-4">Luna was found trembling beneath a bridge during monsoon rains. Malnourished and with an injured paw, she cowered when our rescue team approached.</p>
+                <div class="progress-bar">
+                  <div class="progress-bar-fill bg-primary" style="width: 25%;" data-progress="25"></div>
+                </div>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">25% of journey complete</p>
+              </div>
+            </div>
+            <div class="timeline-node mx-auto md:mx-0 z-10 order-1 md:order-2">
+              <i class="fas fa-search-location"></i>
+            </div>
+            <div class="md:w-1/2 md:pl-12 order-3">
+              <div class="overflow-hidden rounded-xl shadow-lg">
+                <img src="https://images.unsplash.com/photo-1601758003122-53c40e686a19" alt="Rescued dog looking scared and injured" class="w-full h-auto" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Treatment Stage -->
+        <div class="timeline-item mb-16 md:mb-24">
+          <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0 text-right order-2">
+              <div class="overflow-hidden rounded-xl shadow-lg">
+                <img src="https://images.unsplash.com/photo-1606425271394-c3ca9aa1fc06" alt="Dog receiving medical treatment at vet" class="w-full h-auto" loading="lazy">
+              </div>
+            </div>
+            <div class="timeline-node mx-auto md:mx-0 z-10 order-1">
+              <i class="fas fa-stethoscope"></i>
+            </div>
+            <div class="md:w-1/2 md:pl-12 order-3">
+              <div class="timeline-content">
+                <span class="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary font-semibold text-sm mb-2">Day 3</span>
+                <h3 class="text-2xl font-heading font-bold text-warmBrown mb-2">Medical Care</h3>
+                <p class="mb-4">Our vet team discovered Luna had a fractured leg and severe malnutrition. Treatment began immediately with antibiotics, pain management, and a special diet to help her gain strength.</p>
+                <div class="progress-bar">
+                  <div class="progress-bar-fill bg-primary" style="width: 50%;" data-progress="50"></div>
+                </div>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">50% of journey complete</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Recovery Stage -->
+        <div class="timeline-item mb-16 md:mb-24">
+          <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0 text-right order-2 md:order-1">
+              <div class="timeline-content">
+                <span class="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary font-semibold text-sm mb-2">Week 2</span>
+                <h3 class="text-2xl font-heading font-bold text-warmBrown mb-2">Rehabilitation</h3>
+                <p class="mb-4">After her physical wounds began healing, Luna's emotional recovery started in a foster home. Gentle socialization, training, and consistent love helped her begin to trust humans again.</p>
+                <div class="progress-bar">
+                  <div class="progress-bar-fill bg-primary" style="width: 75%;" data-progress="75"></div>
+                </div>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">75% of journey complete</p>
+              </div>
+            </div>
+            <div class="timeline-node mx-auto md:mx-0 z-10 order-1 md:order-2">
+              <i class="fas fa-heart"></i>
+            </div>
+            <div class="md:w-1/2 md:pl-12 order-3">
+              <div class="overflow-hidden rounded-xl shadow-lg">
+                <img src="https://images.unsplash.com/photo-1588943211346-0908a1fb0b01" alt="Dog in recovery playing with a volunteer" class="w-full h-auto" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Adoption Stage -->
+        <div class="timeline-item">
+          <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0 text-right order-2">
+              <div class="overflow-hidden rounded-xl shadow-lg">
+                <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee" alt="Happy dog with new family" class="w-full h-auto" loading="lazy">
+              </div>
+            </div>
+            <div class="timeline-node mx-auto md:mx-0 z-10 order-1">
+              <i class="fas fa-home"></i>
+            </div>
+            <div class="md:w-1/2 md:pl-12 order-3">
+              <div class="timeline-content">
+                <span class="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary font-semibold text-sm mb-2">Month 1</span>
+                <h3 class="text-2xl font-heading font-bold text-warmBrown mb-2">Forever Home</h3>
+                <p class="mb-4">The Sharma family fell in love with Luna during a shelter visit. After a thorough home check and adoption process, Luna found her forever family, complete with a loving home and an 8-year-old girl who became her best friend.</p>
+                <div class="progress-bar">
+                  <div class="progress-bar-fill bg-primary" style="width: 100%;" data-progress="100"></div>
+                </div>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Journey complete! ❤️</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Survivor Stories -->
+  <section id="stories" class="py-16 px-4 md:px-8 section-hidden transition-all duration-500">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-center mb-12">Stories of Transformation</h2>
+      
+      <!-- Testimonial Carousel -->
+      <div class="relative" id="testimonialsCarousel">
+        <div class="overflow-hidden">
+          <div class="carousel-inner flex transition-transform duration-500" id="carouselTrack">
+            <!-- Story 1 -->
+            <div class="carousel-item min-w-full">
+              <div class="flex flex-col md:flex-row gap-8 items-center">
+                <div class="md:w-1/2 flex gap-4">
+                  <div class="w-1/2 overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1444212477490-ca407925329e" alt="Before: Injured stray puppy" class="w-full h-full object-cover" loading="lazy">
+                    <div class="bg-accent text-white text-center py-1 text-sm font-semibold">BEFORE</div>
+                  </div>
+                  <div class="w-1/2 overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee" alt="After: Happy healthy dog" class="w-full h-full object-cover" loading="lazy">
+                    <div class="bg-primary text-white text-center py-1 text-sm font-semibold">AFTER</div>
+                  </div>
+                </div>
+                <div class="md:w-1/2">
+                  <h3 class="text-2xl font-heading font-bold text-primary mb-2">Luna's Story</h3>
+                  <p class="mb-4">From an abandoned, injured puppy to a beloved family member. Luna now enjoys daily walks and playtime with her human sister.</p>
+                  <div class="bg-primary/10 p-4 rounded-lg border-l-4 border-primary">
+                    <p class="italic">"Luna brought so much joy to our family. She's incredibly gentle with our daughter and always so excited to see us when we come home. It's hard to believe she's the same scared dog we met months ago."</p>
+                    <p class="font-semibold mt-2">- The Sharma Family</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Story 2 -->
+            <div class="carousel-item min-w-full">
+              <div class="flex flex-col md:flex-row gap-8 items-center">
+                <div class="md:w-1/2 flex gap-4">
+                  <div class="w-1/2 overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1511044568932-338cba0ad803" alt="Before: Sick kitten" class="w-full h-full object-cover" loading="lazy">
+                    <div class="bg-accent text-white text-center py-1 text-sm font-semibold">BEFORE</div>
+                  </div>
+                  <div class="w-1/2 overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba" alt="After: Healthy cat" class="w-full h-full object-cover" loading="lazy">
+                    <div class="bg-primary text-white text-center py-1 text-sm font-semibold">AFTER</div>
+                  </div>
+                </div>
+                <div class="md:w-1/2">
+                  <h3 class="text-2xl font-heading font-bold text-primary mb-2">Whiskers' Transformation</h3>
+                  <p class="mb-4">Found as a weak kitten with a severe eye infection, Whiskers is now the king of his new home, playful and affectionate.</p>
+                  <div class="bg-primary/10 p-4 rounded-lg border-l-4 border-primary">
+                    <p class="italic">"Whiskers has completely transformed our apartment into a home. He greets me at the door every day and sleeps next to me every night. The love and joy he brings is immeasurable."</p>
+                    <p class="font-semibold mt-2">- Priya M., Mumbai</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Story 3 -->
+            <div class="carousel-item min-w-full">
+              <div class="flex flex-col md:flex-row gap-8 items-center">
+                <div class="md:w-1/2 flex gap-4">
+                  <div class="w-1/2 overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1548681528-6a5c45b66b42" alt="Before: Paralyzed dog" class="w-full h-full object-cover" loading="lazy">
+                    <div class="bg-accent text-white text-center py-1 text-sm font-semibold">BEFORE</div>
+                  </div>
+                  <div class="w-1/2 overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b" alt="After: Dog able to walk" class="w-full h-full object-cover" loading="lazy">
+                    <div class="bg-primary text-white text-center py-1 text-sm font-semibold">AFTER</div>
+                  </div>
+                </div>
+                <div class="md:w-1/2">
+                  <h3 class="text-2xl font-heading font-bold text-primary mb-2">Buddy's Miracle</h3>
+                  <p class="mb-4">Hit by a car and left paralyzed, Buddy regained mobility through intensive hydrotherapy. Now he works as a therapy dog, bringing joy to children in hospitals.</p>
+                  <div class="bg-primary/10 p-4 rounded-lg border-l-4 border-primary">
+                    <p class="italic">"Seeing children's faces light up when Buddy visits is incredible. He's been through so much pain himself, yet he brings such happiness to others. He's not just my pet, he's my hero."</p>
+                    <p class="font-semibold mt-2">- Dr. Raj, Therapy Dog Handler</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Carousel Controls -->
+        <button class="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-3 md:-translate-x-6 bg-white dark:bg-dark shadow-lg rounded-full w-10 h-10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors" id="prevButton">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="absolute top-1/2 right-0 transform -translate-y-1/2 translate-x-3 md:translate-x-6 bg-white dark:bg-dark shadow-lg rounded-full w-10 h-10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors" id="nextButton">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+        <!-- Carousel Indicators -->
+        <div class="flex justify-center mt-6 gap-2" id="carouselIndicators">
+          <button class="w-3 h-3 rounded-full bg-primary/30 indicator-dot" data-index="0"></button>
+          <button class="w-3 h-3 rounded-full bg-primary/30 indicator-dot" data-index="1"></button>
+          <button class="w-3 h-3 rounded-full bg-primary/30 indicator-dot" data-index="2"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- More Survivor Stories -->
+  <section class="py-16 px-4 md:px-8 bg-secondary/10 section-hidden transition-all duration-500">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-center mb-12">More Survivor Stories</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Survivor 1 -->
+        <div class="bg-white dark:bg-dark/80 rounded-xl overflow-hidden shadow-lg transition-all hover:-translate-y-2">
+          <img src="https://images.unsplash.com/photo-1552053831-71594a27632d" alt="Max the dog" class="w-full h-48 object-cover" loading="lazy">
+          <div class="p-6">
+            <h3 class="text-xl font-heading font-bold mb-2">Max</h3>
+            <p class="text-secondary font-semibold text-sm mb-3"><i class="fas fa-paw mr-2"></i>Rescued: Jan 2024</p>
+            <p class="text-sm mb-4">Found with severe burns, now fully recovered and adopted by a loving family in Bangalore.</p>
+            <a href="#" class="text-primary font-semibold text-sm flex items-center">
+              Read Full Story <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Survivor 2 -->
+        <div class="bg-white dark:bg-dark/80 rounded-xl overflow-hidden shadow-lg transition-all hover:-translate-y-2">
+          <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba" alt="Whiskers the cat" class="w-full h-48 object-cover" loading="lazy">
+          <div class="p-6">
+            <h3 class="text-xl font-heading font-bold mb-2">Whiskers</h3>
+            <p class="text-secondary font-semibold text-sm mb-3"><i class="fas fa-paw mr-2"></i>Rescued: Feb 2024</p>
+            <p class="text-sm mb-4">Abandoned kitten with eye infection, now thriving with his new family in Mumbai.</p>
+            <a href="#" class="text-primary font-semibold text-sm flex items-center">
+              Read Full Story <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Survivor 3 -->
+        <div class="bg-white dark:bg-dark/80 rounded-xl overflow-hidden shadow-lg transition-all hover:-translate-y-2">
+          <img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b" alt="Buddy the dog" class="w-full h-48 object-cover" loading="lazy">
+          <div class="p-6">
+            <h3 class="text-xl font-heading font-bold mb-2">Buddy</h3>
+            <p class="text-secondary font-semibold text-sm mb-3"><i class="fas fa-paw mr-2"></i>Rescued: Dec 2023</p>
+            <p class="text-sm mb-4">Paralyzed stray who regained mobility through hydrotherapy. Now a therapy dog!</p>
+            <a href="#" class="text-primary font-semibold text-sm flex items-center">
+              Read Full Story <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How You Can Help Section -->
+  <section id="help" class="py-16 px-4 md:px-8 section-hidden transition-all duration-500">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-center mb-12">How You Can Help</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Donate -->
+        <div class="bg-white dark:bg-dark/80 rounded-xl overflow-hidden shadow-lg transition-all hover:-translate-y-2">
+          <div class="h-48 bg-primary flex items-center justify-center text-white">
+            <i class="fas fa-heart text-6xl"></i>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-heading font-bold mb-2">Donate</h3>
+            <p class="mb-4">Your financial support helps us provide medical treatment, food, and shelter to abandoned animals.</p>
+            <ul class="space-y-2 text-sm mb-6">
+              <li class="flex items-start"><i class="fas fa-check-circle text-primary mr-2 mt-1"></i> ₹500 feeds a dog for a month</li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-primary mr-2 mt-1"></i> ₹2000 covers basic medical treatment</li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-primary mr-2 mt-1"></i> ₹5000 sponsors a major surgery</li>
+            </ul>
+            <a href="#donate" class="btn-pulse relative w-full inline-block px-6 py-3 rounded-full bg-primary text-white font-semibold text-center overflow-hidden transition-all hover:-translate-y-1 hover:bg-accent">
+              Donate Now
+            </a>
+          </div>
+        </div>
+
+        <!-- Foster -->
+        <div class="bg-white dark:bg-dark/80 rounded-xl overflow-hidden shadow-lg transition-all hover:-translate-y-2">
+          <div class="h-48 bg-softOrange flex items-center justify-center text-white">
+            <i class="fas fa-home text-6xl"></i>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-heading font-bold mb-2">Foster</h3>
+            <p class="mb-4">Become a temporary home for an animal in need while they recover and await adoption.</p>
+            <ul class="space-y-2 text-sm mb-6">
+              <li class="flex items-start"><i class="fas fa-check-circle text-primary mr-2 mt-1"></i> Short-term commitments available</li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-primary mr-2 mt-1"></i> Training and supplies provided</li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-primary mr-2 mt-1"></i> Ongoing support from our team</li>
+            </ul>
+            <a href="#" class="btn-pulse relative w-full inline-block px-6 py-3 rounded-full bg-softOrange text-white font-semibold text-center overflow-hidden transition-all hover:-translate-y-1 hover:bg-softOrange/80">
+              Become a Foster
+            </a>
+          </div>
+        </div>
+
+        <!-- Volunteer -->
+        <div class="bg-white dark:bg-dark/80 rounded-xl overflow-hidden shadow-lg transition-all hover:-translate-y-2">
+          <div class="h-48 bg-secondary flex items-center justify-center text-white">
+            <i class="fas fa-hands-helping text-6xl"></i>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-heading font-bold mb-2">Volunteer</h3>
+            <p class="mb-4">Share your time and skills to help with animal care, events, and administrative tasks.</p>
+            <ul class="space-y-2 text-sm mb-6">
+              <li class="flex items-start"><i class="fas fa-check-circle text-primary mr-2 mt-1"></i> Weekend opportunities available</li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-primary mr-2 mt-1"></i> Training provided for all roles</li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-primary mr-2 mt-1"></i> Help with events and fundraising</li>
+            </ul>
+            <a href="#" class="btn-pulse relative w-full inline-block px-6 py-3 rounded-full bg-secondary text-white font-semibold text-center overflow-hidden transition-all hover:-translate-y-1 hover:bg-secondary/80">
+              Join Our Team
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact Stats -->
+  <section id="impact" class="py-16 px-4 md:px-8 bg-secondary text-white section-hidden transition-all duration-500">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-center mb-12">Our 2024 Impact</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white/10 p-8 rounded-xl text-center transition-all stat-item">
+          <h3 class="text-5xl font-heading font-bold mb-2" id="rescuedCount">0</h3>
+          <p>Animals Rescued</p>
+        </div>
+        <div class="bg-white/10 p-8 rounded-xl text-center transition-all stat-item">
+          <h3 class="text-5xl font-heading font-bold mb-2" id="adoptedCount">0</h3>
+          <p>Successful Adoptions</p>
+        </div>
+        <div class="bg-white/10 p-8 rounded-xl text-center transition-all stat-item">
+          <h3 class="text-5xl font-heading font-bold mb-2" id="volunteerCount">0</h3>
+          <p>Dedicated Volunteers</p>
+        </div>
+      </div>
+
+      <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white/10 p-6 rounded-xl">
+          <h3 class="text-xl font-heading font-bold mb-4">Our Achievements</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start"><i class="fas fa-medal text-primary mr-3 mt-1"></i> <span>2024 Municipal Animal Welfare Award</span></li>
+            <li class="flex items-start"><i class="fas fa-star text-primary mr-3 mt-1"></i> <span>5-Star NGO Transparency Rating</span></li>
+            <li class="flex items-start"><i class="fas fa-certificate text-primary mr-3 mt-1"></i> <span>Certified Humane Shelter Standards</span></li>
+          </ul>
+        </div>
+        <div class="bg-white/10 p-6 rounded-xl">
+          <h3 class="text-xl font-heading font-bold mb-4">Our Promise</h3>
+          <p>We believe in transparency and impact. 85% of all donations go directly to animal care, with the remaining 15% supporting essential administrative costs to ensure we can continue our mission effectively.</p>
+          <div class="mt-4 h-4 bg-white/20 rounded-full overflow-hidden">
+            <div class="h-full bg-primary" style="width: 85%;"></div>
+          </div>
+          <div class="flex justify-between mt-1 text-sm">
+            <span>Animal Care (85%)</span>
+            <span>Admin (15%)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Donation Section -->
+  <section id="donate" class="py-16 px-4 md:px-8 bg-primary/10 section-hidden transition-all duration-500">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-center mb-6">Make a Difference Today</h2>
+      <p class="text-center mb-8 max-w-2xl mx-auto">Your donation helps us continue our mission of rescuing, rehabilitating, and rehoming abandoned animals.</p>
+      
+      <div class="bg-white dark:bg-dark/80 p-8 rounded-xl shadow-lg">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+          <div>
+            <h3 class="text-xl font-heading font-bold mb-4">Choose Amount</h3>
+            <div class="grid grid-cols-2 gap-4">
+              <button class="donation-amount-btn px-4 py-3 rounded-lg border-2 border-gray-300 hover:border-primary font-semibold transition-colors" data-amount="500">₹500</button>
+              <button class="donation-amount-btn px-4 py-3 rounded-lg border-2 border-gray-300 hover:border-primary font-semibold transition-colors" data-amount="1000">₹1,000</button>
+              <button class="donation-amount-btn px-4 py-3 rounded-lg border-2 border-gray-300 hover:border-primary font-semibold transition-colors" data-amount="2500">₹2,500</button>
+              <button class="donation-amount-btn px-4 py-3 rounded-lg border-2 border-gray-300 hover:border-primary font-semibold transition-colors" data-amount="5000">₹5,000</button>
+            </div>
+            <div class="mt-4">
+              <label for="customAmount" class="block font-semibold mb-2">Custom Amount (₹)</label>
+              <input type="number" id="customAmount" placeholder="Enter amount" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition">
+            </div>
+          </div>
+          <div>
+            <h3 class="text-xl font-heading font-bold mb-4">Donation Type</h3>
+            <div class="flex flex-col gap-4">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="donationType" value="oneTime" checked class="text-primary">
+                <span>One-time Donation</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="donationType" value="monthly" class="text-primary">
+                <span>Monthly Donation</span>
+              </label>
+              <div class="mt-4">
+                <label for="donationPurpose" class="block font-semibold mb-2">Donation Purpose (Optional)</label>
+                <select id="donationPurpose" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition">
+                  <option value="general">General Fund</option>
+                  <option value="medical">Medical Treatment</option>
+                  <option value="food">Food & Supplies</option>
+                  <option value="shelter">Shelter Improvements</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn-pulse relative w-full px-6 py-4 rounded-full bg-primary text-white font-semibold overflow-hidden transition-all hover:-translate-y-1 hover:bg-accent text-lg">
+          Complete Donation <i class="fas fa-heart ml-2"></i>
+        </button>
+        <div class="mt-4 text-center text-sm">
+          <p>All donations are tax-deductible under Section 80G. A receipt will be emailed to you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Adoption Form -->
+  <section id="adopt" class="py-16 px-4 md:px-8 section-hidden transition-all duration-500">
+    <div class="max-w-2xl mx-auto bg-white dark:bg-dark/80 p-8 md:p-10 rounded-xl shadow-lg">
+      <h2 class="text-3xl font-heading font-bold text-center mb-6">Give Them a Home</h2>
+      <p class="text-center mb-8">Fill out this form to begin the adoption process. Our team will contact you within 48 hours.</p>
+      
+      <form id="adoptionForm" class="space-y-6">
+        <div>
+          <label for="name" class="block font-semibold mb-2">Full Name*</label>
+          <input type="text" id="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition">
+        </div>
+        
+        <div>
+          <label for="email" class="block font-semibold mb-2">Email*</label>
+          <input type="email" id="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition">
+        </div>
+        
+        <div>
+          <label for="phone" class="block font-semibold mb-2">Phone Number*</label>
+          <input type="tel" id="phone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition">
+        </div>
+        
+        <div>
+          <label for="pet" class="block font-semibold mb-2">Interested In Adopting*</label>
+          <select id="pet" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition">
+            <option value="">Select an option</option>
+            <option value="dog">Dog</option>
+            <option value="cat">Cat</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        
+        <div>
+          <label for="experience" class="block font-semibold mb-2">Previous Pet Experience</label>
+          <textarea id="experience" rows="3" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition"></textarea>
+        </div>
+        
+        <button type="submit" class="btn-pulse relative w-full px-6 py-3 rounded-full bg-primary text-white font-semibold overflow-hidden transition-all hover:-translate-y-1 hover:bg-accent">
+          Submit Application <i class="fas fa-heart ml-2"></i>
+        </button>
+        
+        <p id="formStatus" class="text-center"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="py-16 px-4 md:px-8 bg-warmBrown text-white section-hidden transition-all duration-500">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold mb-6">Stay Updated</h2>
+      <p class="mb-8">Join our newsletter to receive updates about our rescue work, success stories, and upcoming events.</p>
+      
+      <form class="flex flex-col md:flex-row gap-4 max-w-xl mx-auto">
+        <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-primary text-dark">
+        <button type="submit" class="btn-pulse relative px-6 py-3 rounded-lg bg-primary text-white font-semibold overflow-hidden transition-all hover:-translate-y-1 hover:bg-accent">
+          Subscribe
+        </button>
+      </form>
+      <p class="mt-4 text-sm opacity-80">We respect your privacy. Unsubscribe at any time.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-12 px-4 md:px-8">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <h3 class="text-xl font-heading font-bold mb-4 text-primary">Paws & Hope</h3>
+        <p class="mb-4">Registered non-profit organization dedicated to animal welfare since 2018.</p>
+        <p><i class="fas fa-certificate text-primary mr-2"></i> 80G Tax Exemption Eligible</p>
+      </div>
+      
+      <div>
+        <h3 class="text-xl font-heading font-bold mb-4">Contact Us</h3>
+        <p class="mb-2"><i class="fas fa-map-marker-alt text-primary mr-3"></i> 123 Rescue Lane, Mumbai, India</p>
+        <p class="mb-2"><i class="fas fa-phone text-primary mr-3"></i> +91 98765 43210</p>
+        <p class="mb-2"><i class="fas fa-envelope text-primary mr-3"></i> contact@pawsandhope.org</p>
+      </div>
+      
+      <div>
+        <h3 class="text-xl font-heading font-bold mb-4">Follow Our Work</h3>
+        <div class="flex gap-4 mb-4">
+          <a href="#" class="text-2xl text-white hover:text-primary transition-colors"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-2xl text-white hover:text-primary transition-colors"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="text-2xl text-white hover:text-primary transition-colors"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-2xl text-white hover:text-primary transition-colors"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p>Subscribe to our newsletter for rescue updates</p>
+      </div>
+    </div>
+    
+    <div class="max-w-6xl mx-auto pt-8 mt-8 border-t border-white/10 text-center">
+      <p>© 2024 Paws & Hope. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Hero Image Setup
+    const heroSection = document.getElementById('heroSection');
+    heroSection.style.backgroundImage = "url('https://images.unsplash.com/photo-1450778869180-41d0601e046e')";
+    
+    // Dark Mode Toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      const icon = darkModeToggle.querySelector('i');
+      if (document.documentElement.classList.contains('dark')) {
+        icon.classList.replace('fa-moon', 'fa-sun');
+        darkModeToggle.querySelector('span').textContent = ' Light Mode';
+      } else {
+        icon.classList.replace('fa-sun', 'fa-moon');
+        darkModeToggle.querySelector('span').textContent = ' Dark Mode';
+      }
+    });
+
+    // Mobile Menu Toggle
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    mobileMenuToggle.addEventListener('click', () => {
+      mobileMenu.classList.remove('hidden');
+      mobileMenu.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    });
+    
+    mobileMenuClose.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      mobileMenu.classList.remove('flex');
+      document.body.style.overflow = '';
+    });
+    
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('flex');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Animate sections on scroll
+    const animateOnScroll = () => {
+      const sections = document.querySelectorAll('section');
+      const hero = document.querySelector('header');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('section-hidden');
+            entry.target.classList.add('section-visible');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      sections.forEach(section => {
+        section.classList.add('section-hidden');
+        observer.observe(section);
+      });
+      
+      if (hero) {
+        const heroContent = hero.querySelector('.section-hidden');
+        if (heroContent) {
+          heroContent.classList.remove('section-hidden');
+          heroContent.classList.add('section-visible');
+        }
+      }
+    };
+
+    // Progress bars animation
+    const animateProgressBars = () => {
+      const progressBars = document.querySelectorAll('.progress-bar-fill');
+      progressBars.forEach(bar => {
+        const width = bar.getAttribute('data-progress') + '%';
+        bar.style.width = '0%';
+        setTimeout(() => {
+          bar.style.width = width;
+        }, 500);
+      });
+    };
+
+    // Animated counter for stats
+    const animateStats = () => {
+      const countTo = (el, target, duration) => {
+        let start = 0;
+        const increment = target / (duration / 16);
+        const timer = setInterval(() => {
+          start += increment;
+          el.textContent = Math.floor(start);
+          if (start >= target) {
+            el.textContent = target;
+            clearInterval(timer);
+          }
+        }, 16);
+      };
+      
+      countTo(document.getElementById('rescuedCount'), 127, 2000);
+      countTo(document.getElementById('adoptedCount'), 89, 2000);
+      countTo(document.getElementById('volunteerCount'), 42, 2000);
+    };
+
+    // Testimonials Carousel
+    const setupCarousel = () => {
+      const track = document.getElementById('carouselTrack');
+      const slides = document.querySelectorAll('.carousel-item');
+      const nextButton = document.getElementById('nextButton');
+      const prevButton = document.getElementById('prevButton');
+      const indicators = document.querySelectorAll('.indicator-dot');
+      let currentIndex = 0;
+      
+      const updateCarousel = () => {
+        const newTransform = `translateX(-${currentIndex * 100}%)`;
+        track.style.transform = newTransform;
+        
+        // Update indicators
+        indicators.forEach((dot, index) => {
+          if (index === currentIndex) {
+            dot.classList.add('bg-primary');
+            dot.classList.remove('bg-primary/30');
+          } else {
+            dot.classList.remove('bg-primary');
+            dot.classList.add('bg-primary/30');
+          }
+        });
+      };
+      
+      nextButton.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateCarousel();
+      });
+      
+      prevButton.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        updateCarousel();
+      });
+      
+      // Indicator clicks
+      indicators.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          currentIndex = index;
+          updateCarousel();
+        });
+      });
+      
+      // Initialize
+      updateCarousel();
+      
+      // Auto-rotate every 6 seconds
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateCarousel();
+      }, 6000);
+    };
+
+    // Form Validation
+    document.getElementById('adoptionForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formStatus = document.getElementById('formStatus');
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      
+      if (name && email) {
+        formStatus.textContent = "Thank you! Our adoption team will contact you within 48 hours.";
+        formStatus.className = "text-center text-secondary font-semibold";
+        e.target.reset();
+      } else {
+        formStatus.textContent = "Please fill all required fields marked with *";
+        formStatus.className = "text-center text-accent font-semibold";
+      }
+    });
+
+    // Donation Amount Selection
+    const donationButtons = document.querySelectorAll('.donation-amount-btn');
+    donationButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        donationButtons.forEach(b => {
+          b.classList.remove('border-primary', 'bg-primary/10');
+        });
+        
+        // Add active class to clicked button
+        btn.classList.add('border-primary', 'bg-primary/10');
+        
+        // Clear custom amount field
+        document.getElementById('customAmount').value = '';
+      });
+    });
+    
+    // Clear button selection when custom amount is entered
+    document.getElementById('customAmount').addEventListener('input', () => {
+      donationButtons.forEach(btn => {
+        btn.classList.remove('border-primary', 'bg-primary/10');
+      });
+    });
+
+    // Initialize all animations when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      animateOnScroll();
+      
+      // Trigger animations when sections become visible
+      const timelineSection = document.getElementById('timeline');
+      const impactSection = document.getElementById('impact');
+      
+      new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          animateProgressBars();
+        }
+      }).observe(timelineSection);
+      
+      new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          animateStats();
+        }
+      }).observe(impactSection);
+      
+      // Initialize carousel
+      setupCarousel();
+    });
+  </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PawsHope Animal Shelter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* General Styles */
+        :root {
+            --primary: #4A8FE7;
+            --secondary: #FF8D4D;
+            --accent: #5CB85C;
+            --light: #F8F9FA;
+            --dark: #343A40;
+            --text: #212529;
+            --background: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary);
+            margin: 15px auto;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+
+        
+        
+        /* 2. Adopt Me Carousel */
+        .adopt-carousel {
+            position: relative;
+            overflow: hidden;
+            margin: 40px 0;
+            padding: 20px 0;
+        }
+        
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            background-color: var(--light);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .adopt-slider {
+            display: flex;
+            transition: transform 0.5s ease;
+            margin: 0 -15px;
+        }
+        
+        .adopt-card {
+            min-width: 300px;
+            flex: 0 0 300px;
+            margin: 0 15px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: scale(0.95);
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+        
+        .adopt-card.active {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .adopt-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .adopt-info {
+            padding: 20px;
+            background-color: white;
+        }
+        
+        .adopt-name {
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .tag {
+            padding: 4px 10px;
+            background-color: var(--light);
+            color: var(--primary);
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .adopt-description {
+            color: var(--text);
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .adopt-btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .adopt-btn:hover {
+            background-color: #ff7733;
+            transform: translateY(-3px);
+        }
+        
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .carousel-control {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-control:hover {
+            background-color: var(--secondary);
+        }
+        
+        /* 3. Featured Story with Heartbeat Animation */
+        .featured-story {
+            padding: 40px;
+            background-color: var(--light);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            margin: 40px 0;
+        }
+        
+        .heartbeat-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .heartbeat {
+            color: #e74c3c;
+            font-size: 30px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.3);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .story-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .story-image {
+            flex: 0 0 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .story-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .story-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 2rem;
+            position: relative;
+        }
+        
+        .story-title:after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary);
+            margin-top: 15px;
+        }
+        
+        .story-description {
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        
+        .story-quote {
+            font-style: italic;
+            padding: 15px;
+            border-left: 4px solid var(--primary);
+            background-color: rgba(74, 143, 231, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .read-full-story {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .read-full-story:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        /* 4. Donation Slider */
+        .donation-container {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin: 40px 0;
+        }
+        
+        .donation-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .donation-title {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .donation-subtitle {
+            color: var(--text);
+            font-size: 16px;
+        }
+        
+        .donation-impact {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .impact-item {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: var(--light);
+            transition: all 0.3s ease;
+        }
+        
+        .impact-item.active {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-10px);
+        }
+        
+        .impact-icon {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+        
+        .impact-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .impact-label {
+            font-size: 14px;
+        }
+        
+        .donation-slider-container {
+            margin-bottom: 30px;
+        }
+        
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .slider-label {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .donation-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        
+        .donation-slider:hover {
+            opacity: 1;
+        }
+        
+        .donation-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: var(--secondary);
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .donation-slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: var(--secondary);
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .donation-amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .donate-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .donate-btn:hover {
+            background-color: #ff7733;
+            transform: translateY(-3px);
+        }
+        
+        /* 5. Paw Trail Scroll Indicator */
+        .paw-trail {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .paw-indicator {
+            width: 30px;
+            height: 30px;
+            background-color: var(--light);
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .paw-indicator:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%234A8FE7" d="M256 224c-79.5 0-144 64.5-144 144s64.5 144 144 144 144-64.5 144-144-64.5-144-144-144zm0 240c-52.9 0-96-43.1-96-96s43.1-96 96-96 96 43.1 96 96-43.1 96-96 96zm143.9-303.9c-6.2-6.2-16.4-6.2-22.6 0l-22.6 22.6c-6.2 6.2-6.2 16.4 0 22.6l22.6 22.6c6.2 6.2 16.4 6.2 22.6 0l22.6-22.6c6.3-6.2 6.3-16.4 0-22.6l-22.6-22.6zm-194.5-38.6c0-8.8-7.2-16-16-16s-16 7.2-16 16v32c0 8.8 7.2 16 16 16s16-7.2 16-16v-32zm-96 96c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16h-32zm-35.9-73.4c-6.2-6.2-16.4-6.2-22.6 0L28.3 186.8c-6.2 6.2-6.2 16.4 0 22.6l22.6 22.6c6.2 6.2 16.4 6.2 22.6 0l22.6-22.6c6.3-6.2 6.3-16.4 0-22.6l-22.6-22.7z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.7;
+        }
+        
+        .paw-indicator.active {
+            background-color: var(--primary);
+        }
+        
+        .paw-indicator.active:before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23FFFFFF" d="M256 224c-79.5 0-144 64.5-144 144s64.5 144 144 144 144-64.5 144-144-64.5-144-144-144zm0 240c-52.9 0-96-43.1-96-96s43.1-96 96-96 96 43.1 96 96-43.1 96-96 96zm143.9-303.9c-6.2-6.2-16.4-6.2-22.6 0l-22.6 22.6c-6.2 6.2-6.2 16.4 0 22.6l22.6 22.6c6.2 6.2 16.4 6.2 22.6 0l22.6-22.6c6.3-6.2 6.3-16.4 0-22.6l-22.6-22.6zm-194.5-38.6c0-8.8-7.2-16-16-16s-16 7.2-16 16v32c0 8.8 7.2 16 16 16s16-7.2 16-16v-32zm-96 96c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16h-32zm-35.9-73.4c-6.2-6.2-16.4-6.2-22.6 0L28.3 186.8c-6.2 6.2-6.2 16.4 0 22.6l22.6 22.6c6.2 6.2 16.4 6.2 22.6 0l22.6-22.6c6.3-6.2 6.3-16.4 0-22.6l-22.6-22.7z"/></svg>');
+            opacity: 1;
+        }
+        
+        .paw-trail-line {
+            width: 2px;
+            height: 20px;
+            background-color: var(--primary);
+            opacity: 0.5;
+        }
+        
+        .paw-trail-progress {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 4px;
+            background-color: var(--secondary);
+            z-index: 100;
+            transition: width 0.3s ease;
+        }
+        
+        .paw-tooltip {
+            position: absolute;
+            right: 45px;
+            padding: 5px 10px;
+            background-color: var(--dark);
+            color: white;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .paw-indicator:hover .paw-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .timeline-container::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item:nth-child(odd)::after,
+            .timeline-item:nth-child(even)::after {
+                left: 15px;
+            }
+            
+            .paw-trail {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .adopt-card {
+                min-width: 250px;
+                flex: 0 0 250px;
+            }
+            
+            .story-image {
+                flex: 0 0 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .impact-item {
+                flex: 0 0 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Your existing header and other content would go here -->
+
+  
+
+    <!-- 2. Adopt Me Carousel Section -->
+    <section id="adopt">
+        <div class="container">
+            <h2 class="section-title">Adopt Me</h2>
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">All Pets</button>
+                <button class="filter-btn" data-filter="dog">Dogs</button>
+                <button class="filter-btn" data-filter="cat">Cats</button>
+                <button class="filter-btn" data-filter="special-needs">Special Needs</button>
+                <button class="filter-btn" data-filter="senior">Senior</button>
+            </div>
+<div class="adopt-carousel">
+                <div class="adopt-slider">
+                    <div class="adopt-card" data-category="dog special-needs">
+                        <img src="/api/placeholder/400/300" alt="Max" class="adopt-image">
+                        <div class="adopt-info">
+                            <h3 class="adopt-name">Max</h3>
+                            <div class="tags-container">
+                                <span class="tag">Dog</span>
+                                <span class="tag">Labrador Mix</span>
+                                <span class="tag">Special Needs</span>
+                                <span class="tag">Playful</span>
+                            </div>
+                            <p class="adopt-description">Max is a lovable 3-year-old lab mix who's overcome a rough start. Despite his missing back leg, he's incredibly active and loves to run and play fetch!</p>
+                            <a href="#" class="adopt-btn">Adopt Max</a>
+                        </div>
+                    </div>
+
+                    <div class="adopt-card" data-category="cat">
+                        <img src="/api/placeholder/400/300" alt="Luna" class="adopt-image">
+                        <div class="adopt-info">
+                            <h3 class="adopt-name">Luna</h3>
+                            <div class="tags-container">
+                                <span class="tag">Cat</span>
+                                <span class="tag">Siamese Mix</span>
+                                <span class="tag">Affectionate</span>
+                                <span class="tag">Quiet</span>
+                            </div>
+                            <p class="adopt-description">Luna is a gentle 2-year-old Siamese mix who loves to curl up in laps and purr. She's great with other cats and would make a perfect companion.</p>
+                            <a href="#" class="adopt-btn">Adopt Luna</a>
+                        </div>
+                    </div>
+
+                    <div class="adopt-card" data-category="dog senior">
+                        <img src="/api/placeholder/400/300" alt="Buddy" class="adopt-image">
+                        <div class="adopt-info">
+                            <h3 class="adopt-name">Buddy</h3>
+                            <div class="tags-container">
+                                <span class="tag">Dog</span>
+                                <span class="tag">Golden Retriever</span>
+                                <span class="tag">Senior</span>
+                                <span class="tag">Loyal</span>
+                            </div>
+                            <p class="adopt-description">Buddy is a sweet 10-year-old golden retriever looking for a quiet home to spend his golden years. He's well-trained, gentle, and loves short walks.</p>
+                            <a href="#" class="adopt-btn">Adopt Buddy</a>
+                        </div>
+                    </div>
+
+                    <div class="adopt-card" data-category="cat special-needs">
+                        <img src="/api/placeholder/400/300" alt="Misty" class="adopt-image">
+                        <div class="adopt-info">
+                            <h3 class="adopt-name">Misty</h3>
+                            <div class="tags-container">
+                                <span class="tag">Cat</span>
+                                <span class="tag">Tabby</span>
+                                <span class="tag">Special Needs</span>
+                                <span class="tag">Playful</span>
+                            </div>
+                            <p class="adopt-description">Misty is a playful 1-year-old tabby who was born blind. She's adapted amazingly and navigates by sound and touch. She loves interactive toys!</p>
+                            <a href="#" class="adopt-btn">Adopt Misty</a>
+                        </div>
+                    </div>
+
+                    <div class="adopt-card" data-category="dog">
+                        <img src="/api/placeholder/400/300" alt="Rocky" class="adopt-image">
+                        <div class="adopt-info">
+                            <h3 class="adopt-name">Rocky</h3>
+                            <div class="tags-container">
+                                <span class="tag">Dog</span>
+                                <span class="tag">Terrier Mix</span>
+                                <span class="tag">Energetic</span>
+                                <span class="tag">Smart</span>
+                            </div>
+                            <p class="adopt-description">Rocky is a smart 4-year-old terrier mix who loves to learn tricks. He's energetic and would do best in an active home with a yard to play in.</p>
+                            <a href="#" class="adopt-btn">Adopt Rocky</a>
+                        </div>
+                    </div>
+
+                    <div class="adopt-card" data-category="cat senior">
+                        <img src="/api/placeholder/400/300" alt="Oliver" class="adopt-image">
+                        <div class="adopt-info">
+                            <h3 class="adopt-name">Oliver</h3>
+                            <div class="tags-container">
+                                <span class="tag">Cat</span>
+                                <span class="tag">Persian Mix</span>
+                                <span class="tag">Senior</span>
+                                <span class="tag">Calm</span>
+                            </div>
+                            <p class="adopt-description">Oliver is a distinguished 12-year-old Persian mix who loves sunbathing and gentle pets. He's looking for a peaceful home to relax in.</p>
+                            <a href="#" class="adopt-btn">Adopt Oliver</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-controls">
+                    <div class="carousel-control" id="prev-btn">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                    <div class="carousel-control" id="next-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Featured Story with Heartbeat Animation -->
+    <section id="featured-story">
+        <div class="container">
+            <h2 class="section-title">Featured Story</h2>
+            <div class="featured-story">
+                <div class="heartbeat-container">
+                    <i class="fas fa-heart heartbeat"></i>
+                </div>
+                <div class="story-content">
+                    <img src="/api/placeholder/600/600" alt="Bella's story" class="story-image">
+                    <div class="story-text">
+                        <h3 class="story-title">Bella: From Streets to Stardom</h3>
+                        <p class="story-description">When we found Bella, she was severely malnourished and terrified of human touch. After weeks of patient care and rehabilitation, she not only recovered physically but blossomed into a confident, loving dog.</p>
+                        <div class="story-quote">
+                            "Bella taught us that every animal, no matter how broken they seem, has an incredible capacity for recovery and love when given a chance."
+                        </div>
+                        <p class="story-description">Today, Bella serves as a therapy dog, visiting hospitals and nursing homes, bringing comfort to those in need. Her journey represents everything our shelter stands for – second chances and the transformative power of compassion.</p>
+                        <a href="#" class="read-full-story">Read Bella's Full Story</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Donation Slider with Real-time Impact -->
+    <section id="donate">
+        <div class="container">
+            <h2 class="section-title">Make a Difference</h2>
+            <div class="donation-container">
+                <div class="donation-header">
+                    <h3 class="donation-title">Your Donation Matters</h3>
+                    <p class="donation-subtitle">Slide to select an amount and see the real impact of your contribution.</p>
+                </div>
+                
+                <div class="donation-impact">
+                    <div class="impact-item" id="impact-meals">
+                        <div class="impact-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="impact-value">0</div>
+                        <div class="impact-label">Meals Provided</div>
+                    </div>
+                    
+                    <div class="impact-item" id="impact-vaccines">
+                        <div class="impact-icon">
+                            <i class="fas fa-syringe"></i>
+                        </div>
+                        <div class="impact-value">0</div>
+                        <div class="impact-label">Vaccines Funded</div>
+                    </div>
+                    
+                    <div class="impact-item" id="impact-shelter">
+                        <div class="impact-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="impact-value">0</div>
+                        <div class="impact-label">Days of Shelter</div>
+                    </div>
+                    
+                    <div class="impact-item" id="impact-rescue">
+                        <div class="impact-icon">
+                            <i class="fas fa-ambulance"></i>
+                        </div>
+                        <div class="impact-value">0</div>
+                        <div class="impact-label">Rescue Operations</div>
+                    </div>
+                </div>
+                
+                <div class="donation-slider-container">
+                    <div class="slider-labels">
+                        <span class="slider-label">$10</span>
+                        <span class="slider-label">$500</span>
+                    </div>
+                    <input type="range" min="10" max="500" value="50" class="donation-slider" id="donation-range">
+                </div>
+                
+                <div class="donation-amount">Your Donation: $<span id="donation-value">75</span></div>
+                
+                <a href="#" class="donate-btn">Donate Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Paw Trail Scroll Indicator -->
+    <div class="paw-trail-progress" id="scroll-progress"></div>
+    <div class="paw-trail" id="paw-trail">
+        <div class="paw-indicator active" data-section="rescue-journey">
+            <span class="paw-tooltip">Rescue Journey</span>
+        </div>
+        <div class="paw-trail-line"></div>
+        <div class="paw-indicator" data-section="adopt">
+            <span class="paw-tooltip">Adopt Me</span>
+        </div>
+        <div class="paw-trail-line"></div>
+        <div class="paw-indicator" data-section="featured-story">
+            <span class="paw-tooltip">Featured Story</span>
+        </div>
+        <div class="paw-trail-line"></div>
+        <div class="paw-indicator" data-section="donate">
+            <span class="paw-tooltip">Donate</span>
+        </div>
+    </div>
+
+    <!-- JavaScript for interactive elements -->
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Timeline animation
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const timelineContents = document.querySelectorAll('.timeline-content');
+            
+            // Show timeline items when scrolled into view
+            function checkTimeline() {
+                timelineItems.forEach(item => {
+                    const itemTop = item.getBoundingClientRect().top;
+                    if (itemTop < window.innerHeight * 0.8) {
+                        item.classList.add('visible');
+                    }
+                });
+            }
+            
+            // Flip timeline cards on click
+            timelineContents.forEach(content => {
+                content.addEventListener('click', function() {
+                    this.classList.toggle('expanded');
+                });
+            });
+            
+            // 2. Adopt Me Carousel
+            const adoptSlider = document.querySelector('.adopt-slider');
+            const adoptCards = document.querySelectorAll('.adopt-card');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            
+            let currentIndex = 0;
+            const cardWidth = 330; // Card width + margin
+            
+            // Update carousel display
+            function updateCarousel() {
+                const offset = -currentIndex * cardWidth;
+                adoptSlider.style.transform = `translateX(${offset}px)`;
+                
+                // Update active card
+                adoptCards.forEach((card, index) => {
+                    if (index === currentIndex) {h
+                        card.classList.add('active');
+                    } else {
+                        card.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Navigate carousel
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                }
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                if (currentIndex < adoptCards.length - 1) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            });
+            
+            // Filter functionality
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Update active button
+                    filterBtns.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter cards
+                    adoptCards.forEach(card => {
+                        const categories = card.getAttribute('data-category');
+                        if (filter === 'all' || categories.includes(filter)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                    
+                    // Reset carousel position
+                    currentIndex = 0;
+                    updateCarousel();
+                });
+            });
+            
+            // 3. Heartbeat animation is handled by CSS
+            
+            // 4. Donation Slider
+            const donationSlider = document.getElementById('donation-range');
+            const donationValue = document.getElementById('donation-value');
+            const impactMeals = document.getElementById('impact-meals').querySelector('.impact-value');
+            const impactVaccines = document.getElementById('impact-vaccines').querySelector('.impact-value');
+            const impactShelter = document.getElementById('impact-shelter').querySelector('.impact-value');
+            const impactRescue = document.getElementById('impact-rescue').querySelector('.impact-value');
+            const impactItems = document.querySelectorAll('.impact-item');
+            
+            // Update values based on slider
+            function updateDonationImpact() {
+                const value = donationSlider.value;
+                donationValue.textContent = value;
+                
+                // Calculate impact values
+                const meals = Math.floor(value * 2);
+                const vaccines = Math.floor(value / 15);
+                const shelter = Math.floor(value / 10);
+                const rescue = Math.floor(value / 100);
+                
+                // Update displayed values
+                impactMeals.textContent = meals;
+                impactVaccines.textContent = vaccines;
+                impactShelter.textContent = shelter;
+                impactRescue.textContent = rescue;
+                
+                // Highlight the most significant impact
+                impactItems.forEach(item => item.classList.remove('active'));
+                
+                // Determine which impact is highest relative to its maximum
+                const mealRatio = meals / 1000; // Assuming 1000 is max meals
+                const vaccineRatio = vaccines / 33; // Assuming 33 is max vaccines (500/15)
+                const shelterRatio = shelter / 50; // Assuming 50 is max shelter days (500/10)
+                const rescueRatio = rescue / 5; // Assuming 5 is max rescues (500/100)
+                
+                const maxRatio = Math.max(mealRatio, vaccineRatio, shelterRatio, rescueRatio);
+                
+                if (maxRatio === mealRatio) {
+                    document.getElementById('impact-meals').classList.add('active');
+                } else if (maxRatio === vaccineRatio) {
+                    document.getElementById('impact-vaccines').classList.add('active');
+                } else if (maxRatio === shelterRatio) {
+                    document.getElementById('impact-shelter').classList.add('active');
+                } else {
+                    document.getElementById('impact-rescue').classList.add('active');
+                }
+            }
+            
+            donationSlider.addEventListener('input', updateDonationImpact);
+            
+            // 5. Paw Trail Scroll Indicator
+            const sections = document.querySelectorAll('section[id]');
+            const pawIndicators = document.querySelectorAll('.paw-indicator');
+            const scrollProgress = document.getElementById('scroll-progress');
+            
+            // Update paw indicators based on scroll position
+            function updatePawTrail() {
+                const scrollY = window.scrollY;
+                const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progressWidth = (scrollY / pageHeight) * 100;
+                
+                scrollProgress.style.width = `${progressWidth}%`;
+                
+                let currentSectionId = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                        currentSectionId = section.getAttribute('id');
+                    }
+                });
+                
+                pawIndicators.forEach(indicator => {
+                    const section = indicator.getAttribute('data-section');
+                    
+                    if (section === currentSectionId) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Scroll to section when paw indicator is clicked
+            pawIndicators.forEach(indicator => {
+                indicator.addEventListener('click', function() {
+                    const section = this.getAttribute('data-section');
+                    const targetSection = document.getElementById(section);
+                    
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Init functions
+            checkTimeline();
+            updateCarousel();
+            updateDonationImpact();
+            updatePawTrail();
+            
+            // Event listeners for scroll
+            window.addEventListener('scroll', function() {
+                checkTimeline();
+                updatePawTrail();
+            });
+            
+            // Initialize everything with a small delay to ensure proper rendering
+            setTimeout(() => {
+                checkTimeline();
+                updateCarousel();
+                updatePawTrail();
+                
+                // Make first card active
+                if (adoptCards.length > 0) {
+                    adoptCards[0].classList.add('active');
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,334 @@
+/* ===== GLOBAL STYLES ===== */
+:root {
+    --primary: #FF8C42;
+    --secondary: #4ECDC4;
+    --dark: #333333;
+    --light: #FFF9F0;
+    --accent: #FF3A20;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Open Sans', sans-serif;
+    color: var(--dark);
+    background: var(--light);
+    line-height: 1.6;
+    transition: background 0.3s, color 0.3s;
+  }
+  
+  body.dark-mode {
+    --light: #1A1A1A;
+    --dark: #F5F5F5;
+    background: #121212;
+  }
+  
+  h1, h2, h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+  }
+  
+  /* ===== DARK MODE BUTTON ===== */
+  .dark-mode-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 0.5rem 1rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  /* ===== HERO SECTION ===== */
+  .hero {
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                url('https://images.unsplash.com/photo-1477884213360-7e9d7dcc1e48') center/cover;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 2rem;
+  }
+  
+  .navbar {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    padding: 1.5rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  
+  .nav-links a {
+    color: white;
+    font-weight: 600;
+    transition: color 0.3s;
+  }
+  
+  .nav-links a:hover {
+    color: var(--primary);
+  }
+  
+  .hero-content {
+    max-width: 800px;
+  }
+  
+  .hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background: var(--primary);
+    color: white;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: transform 0.3s, background 0.3s;
+  }
+  
+  .cta-button:hover {
+    transform: translateY(-3px);
+    background: var(--accent);
+  }
+  
+  /* ===== TIMELINE SECTION ===== */
+  .timeline {
+    padding: 5rem 2rem;
+    text-align: center;
+  }
+  
+  .timeline h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--dark);
+  }
+  
+  .timeline-container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .timeline-item {
+    display: flex;
+    margin-bottom: 3rem;
+    align-items: center;
+    gap: 2rem;
+    text-align: left;
+  }
+  
+  .timeline-img {
+    flex: 1;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .timeline-img img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s;
+  }
+  
+  .timeline-img img:hover {
+    transform: scale(1.03);
+  }
+  
+  .timeline-content {
+    flex: 1;
+  }
+  
+  .timeline-content h3 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+  }
+  
+  .timeline-content .date {
+    color: var(--secondary);
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  
+  /* ===== IMPACT STATS ===== */
+  .stats {
+    background: var(--secondary);
+    padding: 4rem 2rem;
+    text-align: center;
+    color: white;
+  }
+  
+  .stats h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .stats-grid {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+  
+  .stat-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 10px;
+    min-width: 200px;
+  }
+  
+  .stat-item h3 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* ===== ADOPTION FORM ===== */
+  .adoption-form {
+    padding: 5rem 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .adoption-form h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--primary);
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: var(--primary);
+    outline: none;
+  }
+  
+  #formStatus {
+    margin-top: 1rem;
+    font-weight: 600;
+  }
+  
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--dark);
+    color: white;
+    padding: 3rem 2rem 1rem;
+  }
+  
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  
+  .footer-about,
+  .footer-contact,
+  .footer-social {
+    flex: 1;
+    min-width: 250px;
+  }
+  
+  .footer-about h3,
+  .footer-contact h3 {
+    margin-bottom: 1rem;
+    color: var(--primary);
+  }
+  
+  .footer-contact p {
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .footer-social {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .footer-social a {
+    color: white;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+  }
+  
+  .footer-social a:hover {
+    color: var(--primary);
+  }
+  
+  .copyright {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* ===== RESPONSIVE DESIGN ===== */
+  @media (max-width: 768px) {
+    .hero-content h1 {
+      font-size: 2.5rem;
+    }
+  
+    .timeline-item {
+      flex-direction: column;
+    }
+  
+    .stats-grid {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
